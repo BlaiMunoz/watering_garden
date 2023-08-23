@@ -1,52 +1,28 @@
-# Prerequisites
-*.d
-
-# Object files
-*.o
-*.ko
-*.obj
+# Ignore build artifacts and output files
+build/
+*.bin
 *.elf
-
-# Linker output
-*.ilk
+*.log
+*.lst
 *.map
-*.exp
+*.partitions
+*.bin
+*.size
+*.csv
 
-# Precompiled Headers
-*.gch
-*.pch
+# Ignore Eclipse project files
+.project
+.settings/
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+# Ignore Visual Studio Code settings
+.vscode/
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+# Ignore temporary files
+*.swp
+*~
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+# Ignore IDF tools output
+sdkconfig
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
-
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+# Ignore Python virtual environment
+venv/
