@@ -97,9 +97,14 @@ static void sensor_task(void *pvParameters) {
         int sensor_value = gpio_get_level(SENSOR_PIN);
 
         // Print the sensor value
-        printf("Soil Moisture Sensor Value: %d\n", sensor_value);
+		if( sensor_value == 1 )
+		{
+        	printf("Soil is DRY\n\n");
+		}else {
+        	printf("Soil is WET\n\n");
+		}
 
         // Delay for some time before the next reading (adjust as needed)
-        vTaskDelay(pdMS_TO_TICKS(2000)); // Delay for 1 second
+        vTaskDelay(pdMS_TO_TICKS(5000)); // Delay for 1 second
     }
 }
