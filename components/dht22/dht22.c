@@ -48,7 +48,7 @@
 #define MAXdhtData 5	// to complete 40 = 5*8 Bits
 
 // =============================================================================
-// Global Variables
+// Private Variables
 // =============================================================================
 static TaskHandle_t dht22_task_handle = NULL;
 static bool dht22_task_running = false;
@@ -152,8 +152,8 @@ static void dht22_task(void *pvParameters) {
 		ESP_LOGI(DHT22_TAG, "Humidity %.2f %%\n", humidity);
 		ESP_LOGI(DHT22_TAG, "Temperature %.2f degC\n\n", temperature);
 
-        // Delay for 4 seconds
-        vTaskDelay(4000 / portTICK_PERIOD_MS);
+        // Delay for 60 seconds
+        vTaskDelay(60000 / portTICK_PERIOD_MS);
     }
 
     vTaskDelete(NULL);

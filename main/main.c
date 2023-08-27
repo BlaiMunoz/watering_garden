@@ -26,6 +26,7 @@
 #include "esp_log.h"
 
 #include "dht22.h"
+#include "moisture.h"
 
 #define MAIN "MAIN"
 
@@ -36,7 +37,8 @@ void app_main(void)
 
     ESP_LOGI(MAIN, "Salute!\n");
 
-    dht22_init();
+    // dht22_init();
+    moisture_init();
 
     while (true) // Exit the loop after 2 iterations
     {
