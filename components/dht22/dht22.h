@@ -1,6 +1,6 @@
 /*
  * Project: Self watering ESP32 garden
- * Description: This source file is part of an ESP32-based Plant Watering System. The system is designed
+ * Description: This header file is part of an ESP32-based Plant Watering System. The system is designed
  * to monitor air temperature, humidity, and soil moisture levels for up to six plants
  * and autonomously activate water pumps to water these plants as needed.
  *
@@ -20,20 +20,24 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include <stdio.h>
-#include "freertos/FreeRTOS.h"
-#include "freertos/task.h"
+#ifndef DHT22_H
+#define DHT22_H
 
-void app_main(void)
-{
-    printf("Salute!\n");
+/**
+ * @brief Initialize the DHT22 sensor.
+ *
+ * This function initializes the DHT22 sensor, preparing it for data reading.
+ * It should be called once during the setup phase of your application.
+ */
+void dht22_init();
 
-    int count = 0;
+/**
+ * @brief Deinitialize the DHT22 sensor.
+ *
+ * This function deinitializes the DHT22 sensor, releasing any allocated resources
+ * and preparing it for shutdown. It should be called when the sensor is no longer
+ * needed or during the cleanup phase of your application.
+ */
+void dht22_deinit();
 
-    while (1)
-    {
-        printf("Count: %d\n", count);
-        count++;
-        vTaskDelay(10000 / portTICK_PERIOD_MS); // Delay for 10 seconds
-    }
-}
+#endif /* DHT22_H */
