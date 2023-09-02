@@ -1,6 +1,6 @@
 /*
  * Project: Self watering ESP32 garden
- * Description: This header file is part of an ESP32-based Plant Watering System. The system is designed
+ * Description: This source file is part of an ESP32-based Plant Watering System. The system is designed
  * to monitor air temperature, humidity, and soil moisture levels for up to six plants
  * and autonomously activate water pumps to water these plants as needed.
  *
@@ -20,8 +20,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef DHT22_H
-#define DHT22_H
+
+#ifndef MOISTURE_H
+#define MOISTURE_H
 
 // =============================================================================
 // Imports
@@ -41,22 +42,24 @@
 // =============================================================================
 // Public Function Declarations
 // =============================================================================
+/**
+ * @brief Initialize the Capacitive Soil Moisture Sensor.
+ *
+ * This function initializes the hardware and any necessary software components
+ * for the Capacitive Soil Moisture Sensor. It may include tasks like configuring
+ * the GPIO pins, setting up communication interfaces, or initializing sensor-specific
+ * features. After initialization, the sensor is ready for use.
+ */
+void moisture_init();
 
 /**
- * @brief Initialize the DHT22 sensor.
+ * @brief Deinitialize the Capacitive Soil Moisture Sensor.
  *
- * This function initializes the DHT22 sensor, preparing it for data reading.
- * It should be called once during the setup phase of your application.
+ * This function deinitializes the Capacitive Soil Moisture Sensor, releasing any
+ * allocated resources or shutting down any hardware components that were initialized
+ * during the sensor's initialization. It should be called when the sensor is no longer
+ * needed to clean up resources and prevent resource leaks.
  */
-void dht22_init();
+void moisture_deinit();
 
-/**
- * @brief Deinitialize the DHT22 sensor.
- *
- * This function deinitializes the DHT22 sensor, releasing any allocated resources
- * and preparing it for shutdown. It should be called when the sensor is no longer
- * needed or during the cleanup phase of your application.
- */
-void dht22_deinit();
-
-#endif /* DHT22_H */
+#endif /* MOISTURE_H */
