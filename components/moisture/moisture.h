@@ -1,6 +1,6 @@
 /*
  * Project: Self watering ESP32 garden
- * Description: This header file is part of an ESP32-based Plant Watering System. The system is designed
+ * Description: This source file is part of an ESP32-based Plant Watering System. The system is designed
  * to monitor air temperature, humidity, and soil moisture levels for up to six plants
  * and autonomously activate water pumps to water these plants as needed.
  *
@@ -20,9 +20,28 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+
 #ifndef MOISTURE_H
 #define MOISTURE_H
 
+// =============================================================================
+// Imports
+// =============================================================================
+
+
+// =============================================================================
+// Defines
+// =============================================================================
+
+
+// =============================================================================
+// Public Variables
+// =============================================================================
+
+
+// =============================================================================
+// Public Function Declarations
+// =============================================================================
 /**
  * @brief Initialize the Capacitive Soil Moisture Sensor.
  *

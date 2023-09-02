@@ -40,12 +40,14 @@
 // Defines
 // =============================================================================
 
-#define DHT22_TAG "DHT22"
-#define GPIO_DHT22 22
-#define DHT_OK 0
-#define DHT_CHECKSUM_ERROR -1
-#define DHT_TIMEOUT_ERROR -2
-#define MAXdhtData 5	// to complete 40 = 5*8 Bits
+#define DHT22_TAG 						"DHT22"
+#define GPIO_DHT22 						22
+#define DHT_OK 							0
+#define DHT_CHECKSUM_ERROR 				-1
+#define DHT_TIMEOUT_ERROR 				-2
+#define MAXdhtData 						5
+#define DHT_TIME_BREAK					60
+
 
 // =============================================================================
 // Private Variables
@@ -60,6 +62,7 @@ static float temperature = 0.;
 // =============================================================================
 // Private Function Declarations
 // =============================================================================
+
 /**
  * @brief Task function for reading DHT22 sensor data.
  *
@@ -152,8 +155,8 @@ static void dht22_task(void *pvParameters) {
 		ESP_LOGI(DHT22_TAG, "Humidity %.2f %%\n", humidity);
 		ESP_LOGI(DHT22_TAG, "Temperature %.2f degC\n\n", temperature);
 
-        // Delay for 60 seconds
-        vTaskDelay(60000 / portTICK_PERIOD_MS);
+        // Delay for some time before the next reading (adjust as needed)
+        vTaskDelay(pdMS_TO_TICKS(DHT_TIME_BREAK));
     }
 
     vTaskDelete(NULL);

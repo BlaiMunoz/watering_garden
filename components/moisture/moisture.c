@@ -35,9 +35,9 @@
 // Defines
 // =============================================================================
 
-#define MOISTURE_TAG "MOISTURE SENSOR"
-#define SENSOR_PIN 21
-
+#define MOISTURE_TAG                                            "MOISTURE SENSOR"
+#define SENSOR_PIN                                              21
+#define MOISTURE_TIME_BREAK                                     60000
 
 // =============================================================================
 // Private Variables
@@ -105,6 +105,6 @@ static void sensor_task(void *pvParameters) {
 		}
 
         // Delay for some time before the next reading (adjust as needed)
-        vTaskDelay(pdMS_TO_TICKS(5000)); // Delay for 1 second
+        vTaskDelay(pdMS_TO_TICKS(MOISTURE_TIME_BREAK));
     }
 }
