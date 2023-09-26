@@ -27,6 +27,7 @@
 
 #include "dht22.h"
 #include "moisture.h"
+#include "wifi.h"
 
 #define MAIN "MAIN"
 
@@ -38,7 +39,8 @@ void app_main(void)
     ESP_LOGI(MAIN, "Salute!\n");
 
     // dht22_init();
-    moisture_init();
+    // moisture_init();
+    wifi_init();
 
     while (true) // Exit the loop after 2 iterations
     {
