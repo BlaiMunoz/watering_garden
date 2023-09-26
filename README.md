@@ -71,6 +71,11 @@ Follow these steps to set up, build, and flash the Plant Watering System firmwar
    ```shell
    cd esp32-plant-watering-system
    ```
+4. Seeting up the ennvironment
+   -  Before building, flashing or doing any other action the user must execute the following command once:
+   ```shell
+   . $HOME/esp/esp-idf/export.sh
+   ```
 
 ### Configuring the ESP32
 
