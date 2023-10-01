@@ -28,8 +28,11 @@
 #include "dht22.h"
 #include "moisture.h"
 #include "wifi.h"
+#include "reles.h"
 
 #define MAIN "MAIN"
+
+int id = 0;
 
 void app_main(void)
 {
@@ -40,12 +43,18 @@ void app_main(void)
 
     // dht22_init();
     // moisture_init();
-    wifi_init();
+    // wifi_init();
+
+    // Initialize the GPIO component with custom intervals
+    reles_init();
 
     while (true) // Exit the loop after 2 iterations
     {
-        vTaskDelay(1000 / portTICK_PERIOD_MS); // Delay for 10 seconds
+        ESP_LOGI(MAIN, "id: %d!\n", id);
+        reles_add_watering(id);
+        vTaskDelay(2000 / portTICK_PERIOD_MS); // Delay for 10 seconds
+        id++;
+        id = id % 6;
     }
 
-    // dht22_pause();
 }
