@@ -20,6 +20,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+// =============================================================================
+// Imports
+// =============================================================================
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -28,9 +31,29 @@
 #include "dht22.h"
 #include "moisture.h"
 #include "wifi.h"
+#include "reles.h"
 
 #define MAIN "MAIN"
 
+// =============================================================================
+// Defines
+// =============================================================================
+
+// =============================================================================
+// Private Variables
+// =============================================================================
+
+// =============================================================================
+// Private Function Declarations
+// =============================================================================
+
+// =============================================================================
+// Definitions of Public Functions
+// =============================================================================
+
+// =============================================================================
+// Definitions of Private Functions
+// =============================================================================
 void app_main(void)
 {
     // Initialize the FreeRTOS logger
@@ -38,14 +61,17 @@ void app_main(void)
 
     ESP_LOGI(MAIN, "Salute!\n");
 
+    // Initialize the necessary components for your project here.
+    // Example:
     // dht22_init();
     // moisture_init();
-    wifi_init();
+    // wifi_init();
 
-    while (true) // Exit the loop after 2 iterations
+    // Initialize the GPIO component with custom intervals
+    reles_init();
+
+    while (true) // Exit the loop after 2 iterations (or adjust as needed)
     {
-        vTaskDelay(1000 / portTICK_PERIOD_MS); // Delay for 10 seconds
+        vTaskDelay(2000 / portTICK_PERIOD_MS); // Delay for 2 seconds (adjust as needed)
     }
-
-    // dht22_pause();
 }
