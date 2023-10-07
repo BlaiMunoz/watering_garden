@@ -46,6 +46,8 @@
 #define GPIO_OUTPUT_PIN_5  2
 #define GPIO_OUTPUT_PIN_6  4
 
+#define SECONDS_IN_ONE_DAY 86400
+
 typedef struct {
     gpio_num_t gpio_number;   // GPIO number
     uint32_t wait_ms;         // Wait time in milliseconds
@@ -54,7 +56,8 @@ typedef struct {
 // =============================================================================
 // Private Variables
 // =============================================================================
-static TaskHandle_t gpio_task_handle;
+static TaskHandle_t gpio_queue_thread_handle;
+static TaskHandle_t gpio_watering_handle;
 
 static GpioSettings gpio_settings[NUM_GPIO_PINS] = {
     {GPIO_OUTPUT_PIN_1, 1000},
@@ -83,6 +86,16 @@ static QueueHandle_t gpio_queue;
 static void rele_queue_thread(void *pvParameters);
 
 /**
+ * @brief Function to schedule periodic watering operations.
+ *
+ * This function is responsible for scheduling periodic watering operations based on
+ * a 24-hour interval.
+ *
+ * @param pvParameters A pointer to task parameters (not used in this function).
+ */
+static void rele_set_watering(void *pvParameters);
+
+/**
  * @brief Function to configure GPIO pins.
  *
  * It sets the GPIO pins as OUTPUT and disables interrupts.
@@ -90,11 +103,11 @@ static void rele_queue_thread(void *pvParameters);
 static void configure_gpios();
 
 /**
- * @brief Function to configure the GPIO control task.
+ * @brief Function to configure the GPIO control threads.
  *
- * This function creates and starts the GPIO control thread
+ * This function creates and starts the GPIO control threads
  */
-static void configure_thread();
+static void configure_threads();
 
 /**
  * @brief Function to configure the queue for GpioSettings.
@@ -104,21 +117,20 @@ static void configure_thread();
  */
 static void configure_queue();
 
-
 // =============================================================================
 // Definitions of Public Functions
 // =============================================================================
 void reles_init() {
     configure_queue();
     configure_gpios();
-    configure_thread();
+    configure_threads();
 }
 
 
 void reles_deinit(QueueHandle_t gpio_queue) {
-    if (gpio_task_handle != NULL) {
-        vTaskDelete(gpio_task_handle);
-        gpio_task_handle = NULL;
+    if (gpio_queue_thread_handle != NULL) {
+        vTaskDelete(gpio_queue_thread_handle);
+        gpio_queue_thread_handle = NULL;
     }
 
     // Delete the queue if it's not NULL
@@ -165,6 +177,15 @@ static void rele_queue_thread(void *pvParameters) {
     }
 }
 
+static void rele_set_watering(void *pvParameters) {
+    while (1) {
+        for(int i = 0; i < NUM_GPIO_PINS; i++) {
+            reles_add_watering(i);
+        }
+        vTaskDelay((SECONDS_IN_ONE_DAY * 1000) / portTICK_PERIOD_MS);
+    }
+}
+
 // Function to configure the GPIOs
 static void configure_gpios() {
     gpio_config_t io_conf;
@@ -182,8 +203,9 @@ static void configure_gpios() {
 }
 
 // Function to configure the GPIO control task
-static void configure_thread() {
-    xTaskCreate(rele_queue_thread, "rele_queue_thread", TASK_STACK_SIZE, NULL, 5, &gpio_task_handle);
+static void configure_threads() {
+    xTaskCreate(rele_queue_thread, "rele_queue_thread", TASK_STACK_SIZE, NULL, 5, &gpio_queue_thread_handle);
+    xTaskCreate(rele_set_watering, "rele_watering_thread", 2048, NULL, 5, &gpio_watering_handle);
 }
 
 // Function to configure the queue

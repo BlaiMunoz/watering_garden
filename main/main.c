@@ -20,6 +20,9 @@
  * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
 
+// =============================================================================
+// Imports
+// =============================================================================
 #include <stdio.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -32,8 +35,25 @@
 
 #define MAIN "MAIN"
 
-int id = 0;
+// =============================================================================
+// Defines
+// =============================================================================
 
+// =============================================================================
+// Private Variables
+// =============================================================================
+
+// =============================================================================
+// Private Function Declarations
+// =============================================================================
+
+// =============================================================================
+// Definitions of Public Functions
+// =============================================================================
+
+// =============================================================================
+// Definitions of Private Functions
+// =============================================================================
 void app_main(void)
 {
     // Initialize the FreeRTOS logger
@@ -41,6 +61,8 @@ void app_main(void)
 
     ESP_LOGI(MAIN, "Salute!\n");
 
+    // Initialize the necessary components for your project here.
+    // Example:
     // dht22_init();
     // moisture_init();
     // wifi_init();
@@ -48,13 +70,8 @@ void app_main(void)
     // Initialize the GPIO component with custom intervals
     reles_init();
 
-    while (true) // Exit the loop after 2 iterations
+    while (true) // Exit the loop after 2 iterations (or adjust as needed)
     {
-        ESP_LOGI(MAIN, "id: %d!\n", id);
-        reles_add_watering(id);
-        vTaskDelay(2000 / portTICK_PERIOD_MS); // Delay for 10 seconds
-        id++;
-        id = id % 6;
+        vTaskDelay(2000 / portTICK_PERIOD_MS); // Delay for 2 seconds (adjust as needed)
     }
-
 }
